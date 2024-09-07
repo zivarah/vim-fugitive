@@ -2641,7 +2641,11 @@ function! s:AddDiffSection(to, stat, label, files) abort
 endfunction
 
 function! s:QueryLog(refspec, limit, dir) abort
-  let [log, exec_error] = s:LinesError(['log', '-n', '' . a:limit, '--pretty=format:%h%x09%s'] + a:refspec + ['--'], a:dir)
+  let format = FugitiveConfigGet('fugitive.statusLogFormat', a:dir)
+  if empty(format)
+    let format = '%s'
+  endif
+  let [log, exec_error] = s:LinesError(['log', '-n', '' . a:limit, '--pretty=format:%h%x09' . format] + a:refspec + ['--'], a:dir)
   call map(log, 'split(v:val, "\t", 1)')
   call map(log, '{"type": "Log", "commit": v:val[0], "subject": join(v:val[1 : -1], "\t")}')
   let result = {'error': exec_error ? 1 : 0, 'overflow': 0, 'entries': log}

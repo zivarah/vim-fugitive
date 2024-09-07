@@ -608,6 +608,16 @@ Global maps can be disabled with the g:fugitive_no_maps option.
 >
         let g:fugitive_no_maps = 1
 <
+                                       *g:fugitive_enable_custom_status_format*
+                                       *fugitive.customStatusFormat*
+Fugitive can use a custom format when showing commits in the
+|fugitive-summary| buffer. Set the |fugitive.customStatusFormat| git config to
+a format string. Fugitive will automatically include the commit hash, so you
+don't need to specify that. For example, to show the author's name truncated
+to 15 characters before the subject:
+>
+        git config fugitive.customStatusFormat "%<(15,trunc)%an %w()%s"
+<
 SPECIFYING OBJECTS                      *fugitive-object* *fugitive-revision*
 
 Fugitive objects are either work tree files or Git revisions as defined in the
