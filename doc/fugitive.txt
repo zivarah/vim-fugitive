@@ -610,11 +610,16 @@ Global maps can be disabled with the g:fugitive_no_maps option.
 <
                                        *g:fugitive_enable_custom_status_format*
                                        *fugitive.customStatusFormat*
-Fugitive can use a custom format when showing commits in the
-|fugitive-summary| buffer. Set the |fugitive.customStatusFormat| git config to
-a format string. Fugitive will automatically include the commit hash, so you
-don't need to specify that. For example, to show the author's name truncated
-to 15 characters before the subject:
+Fugitive can use a custom format when showing commits in the |fugitive-summary|
+buffer. First, set |g:fugitive_enable_custom_status_format| to 1 to enable the
+feature.
+>
+        let g:fugitive_enable_custom_status_format = 1
+<
+Then, set the |fugitive.customStatusFormat| git config to a format string.
+Fugitive will automatically include the commit hash, so you don't need to
+specify that. For example, to show the author's name truncated to 15
+characters before the subject:
 >
         git config fugitive.customStatusFormat "%<(15,trunc)%an %w()%s"
 <

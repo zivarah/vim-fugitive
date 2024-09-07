@@ -2641,7 +2641,11 @@ function! s:AddDiffSection(to, stat, label, files) abort
 endfunction
 
 function! s:QueryLog(refspec, limit, dir) abort
-  let format = FugitiveConfigGet('fugitive.statusLogFormat', a:dir)
+  " Avoid unnecessary git config calls for the sake of performance
+  let format = ''
+  if get(g:, 'fugitive_enable_custom_status_format', 0)
+    let format = FugitiveConfigGet('fugitive.customStatusFormat', a:dir)
+  endif
   if empty(format)
     let format = '%s'
   endif
